@@ -97,3 +97,13 @@ ORDER BY SalesMonth;
 SELECT CustomerName FROM Orders
 WHERE OrderDate >= DATEADD(DAY, -30, GETDATE());
 
+
+
+SELECT * FROM Orders;
+--Advance level
+--Get the months where total sales crossed ₹50,000.
+SELECT FORMAT(OrderDate, 'yyyy-MM')AS SalesMonth,SUM(Amount)AS Total FROM Orders
+GROUP BY FORMAT(OrderDate, 'yyyy-MM')
+HAVING SUM(Amount) > 500
+ORDER BY SalesMonth;
+
