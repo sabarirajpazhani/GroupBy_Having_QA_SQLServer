@@ -29,7 +29,7 @@ INSERT INTO Orders VALUES
 (10, 'Priya', 104, 500, '2024-05-10');
 
 
-SELECT * FROM Orders;
+
 --Basic Level
 ---Total orders placed for each product
 SELECT ProductID , COUNT(*) FROM Orders
@@ -54,3 +54,37 @@ GROUP BY ProductID;
 SELECT CustomerName, SUM(Amount) AS TotalAmount
 FROM Orders
 GROUP BY CustomerName;
+
+
+SELECT * FROM Orders;
+--Intermediate Level
+--Find products that have been ordered more than 2 times.
+SELECT ProductID, COUNT(*) AS OderedCount FROM Orders
+GROUP BY ProductID
+HAVING COUNT(*) > 2 ;
+
+--Display customer names whose total order amount exceeds ₹400.
+SELECT CustomerName , SUM(Amount) FROM Orders
+GROUP BY CustomerName
+HAVING SUM(Amount) > 400;
+
+--Group orders by product and show the total sales for each product.
+SELECT ProductID , SUM(Amount) FROM Orders
+GROUP BY ProductID;
+
+--List the product IDs that have been ordered more than 2 times and show their total sales.
+SELECT ProductID , COUNT(*), SUM(Amount) FROM Orders
+GROUP BY ProductID
+HAVING COUNT(*) > 2;
+
+-- Find the top 3 customers who spent the most.
+SELECT TOP 3 CustomerName, SUM(Amount) FROM Orders
+GROUP BY CustomerName
+ORDER BY SUM(Amount) DESC;
+
+--Show each product ID with its total sales amount, but only if it has been ordered by more than 2
+SELECT ProductID, SUM(Amount),COUNT(DISTINCT CustomerName) FROM Orders
+GROUP BY ProductID
+HAVING COUNT(*) > 2;
+
+
