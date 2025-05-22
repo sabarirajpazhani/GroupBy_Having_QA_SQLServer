@@ -56,7 +56,7 @@ FROM Orders
 GROUP BY CustomerName;
 
 
-SELECT * FROM Orders;
+
 --Intermediate Level
 --Find products that have been ordered more than 2 times.
 SELECT ProductID, COUNT(*) AS OderedCount FROM Orders
@@ -87,4 +87,13 @@ SELECT ProductID, SUM(Amount),COUNT(DISTINCT CustomerName) FROM Orders
 GROUP BY ProductID
 HAVING COUNT(*) > 2;
 
+--Show the total sales per month
+SELECT FORMAT(OrderDate, 'yyyy-MM') AS SalesMonth, SUM(Amount) AS TotalAmount
+FROM Orders
+GROUP BY FORMAT(OrderDate, 'yyyy-MM')
+ORDER BY SalesMonth;
+
+--List all customers who placed at least one order in the last 30 days
+SELECT CustomerName FROM Orders
+WHERE OrderDate >= DATEADD(DAY, -30, GETDATE());
 
